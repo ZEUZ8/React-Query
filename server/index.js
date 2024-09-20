@@ -22,7 +22,7 @@ app.get("/users",(req,res)=>{
 app.post("/users",(req,res)=>{
     const newUser = req.body;
     users.push(newUser)
-    res.status(2001).json(newUser)
+    res.status(201).json(newUser)
 })
 
 app.listen(port,()=>{
