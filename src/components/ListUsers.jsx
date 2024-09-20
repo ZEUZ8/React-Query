@@ -1,21 +1,26 @@
 import React from 'react'
-import { useQueryClient } from 'react-query'
+import { useUserList, useUserLIstMutate } from '../hooks/useUserList';
 
 const ListUsers = () => {
-    const [status, setStatus] = useState(false);
-    const query = useQueryClient();
-    const users = query.getQueryData(["users"])
-    console.log(users,' users in the component')
+  const { data, isLoading, isError, isSuccess } = useUserList();
+
+  const { mutate } = useUserLIstMutate();
+
+  if (isError) console.log("ERROR");
+  if (isLoading) <>Loading....</>;
+  if (isSuccess) console.log(data, " users in console");
+
   return (
     <div>
-       <h1>List of Users</h1>
+      <button onClick={() => mutate()}>Add User</button>
+      <h1>List of Users</h1>
       <ul>
-        {users?.map((user)=>{
-          return <li key={user?.id}>{user?.name}</li>
+        {data?.map((user) => {
+          return <li key={user?.id}>{user?.name}</li>;
         })}
       </ul>
     </div>
-  )
+  );
 }
 
 export default ListUsers

@@ -1,15 +1,13 @@
 import React from 'react'
-import { useQueryClient } from 'react-query'
+import { useUserList } from '../hooks/useUserList';
 
 const BackUpUser = () => {
-    const query = useQueryClient();
-    const users = query.getQueryData(["users"])
-    console.log(users,' users in the component')
+    const {data} = useUserList();
   return (
     <div>
-       <h1>List of Users</h1>
+       <h1>Backup Users</h1>
       <ul>
-        {users?.map((user)=>{
+        {data?.map((user)=>{
           return <li key={user?.id}>{user?.name}</li>
         })}
       </ul>
